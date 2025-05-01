@@ -35,7 +35,7 @@ int prev = appointments[0][1], n = appointments.size();
 
 for(int i = 1; i < n; i++){
     int curr = appointments[i][0];
-    if(curr < prev){
+    if(prev > curr){
         attend = false;
         // you can return false here as well
     }
