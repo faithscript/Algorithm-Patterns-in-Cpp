@@ -43,3 +43,23 @@ for(int i = 0; i < meetings.size(); i++){
     curRooms++;
     minRooms = max(minRooms, curRooms);
 }
+
+struct compareEnd{
+    bool operator()(const Job& a, const Job& b){
+        return a.end > b.end;
+    }
+};
+
+priority_queue<Job, vector<Job>, compareEnd> minHeap;
+int currCPU = 0, maxCPU = 0;
+
+for(const auto& job: jobs){
+    while(!minHeap.empty() && minHeap.top().end <= job.start){
+        currCPU -= minHeap.top().cpuLoad;
+        minHeap.pop();
+    }
+    minHeap.push(job);
+    currCPU += job.cpuLoad;
+    maxCPU = max(currCPU, maxCPU);
+}
+// you can return maxCPU here
