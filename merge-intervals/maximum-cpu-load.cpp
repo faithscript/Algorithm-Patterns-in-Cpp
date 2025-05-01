@@ -51,3 +51,23 @@ vector<Job> jobs3 = {
     Job(2, 4, 11), // Start: 2, End: 4, CPU Load: 11
     Job(8, 12, 15) // Start: 8, End: 12, CPU Load: 15
 };
+
+struct compareEnd{
+    bool operator()(const Job& a, const Job& b){
+        return a.end > b.end;
+    }
+};
+
+priority_queue<Job, vector<Job>, compareEnd> minHeap;
+int currCPU = 0, maxCPU = 0;
+
+for(const auto& job: jobs){
+    while(!minHeap.empty() && minHeap.top().end <= job.start){
+        currCPU -= minHeap.top().cpuLoad;
+        minHeap.pop();
+    }
+    minHeap.push(job);
+    currCPU += job.cpuLoad;
+    maxCPU = max(currCPU, maxCPU);
+}
+// you can return maxCPU
