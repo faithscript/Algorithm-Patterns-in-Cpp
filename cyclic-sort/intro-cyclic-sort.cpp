@@ -37,3 +37,17 @@ Output: [1, 2, 3, 4, 5, 6]
 
 */
 
+vector<int> nums = {3, 1, 5, 4, 2};
+
+int i = 0;
+while(i < nums.size()){
+    int c = nums[i] - 1; // nums[i] = i + 1; i = nums[i] - 1;
+    if(nums[i]!= nums[c]){
+        swap(nums[i], nums[c]);
+    }else{
+        i++;
+    }
+}
+
+// this will sort the array in place
+
