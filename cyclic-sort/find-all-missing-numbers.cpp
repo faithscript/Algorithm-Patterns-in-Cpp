@@ -27,7 +27,7 @@ for(int i = 0; i < nums.size(); i++){
         answer.push_back(i+1);
     }
 }
-return answer;
+
 
 /* you can return answer here */ 
 
