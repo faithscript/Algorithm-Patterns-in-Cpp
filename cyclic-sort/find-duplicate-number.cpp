@@ -37,3 +37,5 @@ for(int i = 0; i < nums.size(); i++){
 // If no duplicate found (should not happen given the problem constraints)
 return -1;
 /* the end */
+
+// Find all duplicate numbers will just need a  push back of all the nums[i] into the array;
