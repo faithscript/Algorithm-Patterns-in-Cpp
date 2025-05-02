@@ -19,9 +19,9 @@ vector<int> nums3 = {9, 6, 4, 2, 3, 5, 7, 0, 1};  // Missing number is 8
 
 int i = 0;
 whlie(i < nums.size()){
-    int curr = nums[i];  // nums[i] = i;
+    int curr = nums[i];  // nums[i] = i, so we want our index to be the value of nums[i]
     if(nums[i] != nums[curr]){
-        swap(nums[i], nums[curr]);
+        swap(nums[i], nums[curr]);        // swap if it's not that value
     }else{
         i++;
     }
