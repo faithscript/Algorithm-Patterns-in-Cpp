@@ -50,14 +50,13 @@ public:
 class Solution {
 public:
     bool isHappy(int n) {
-        unordered_set<int> seen;
-        if(n==1)return true;
-        while(n!=1){
-            n = square(n);
-            if(seen.find(n)!= seen.end()) return false;
-            seen.insert(n);
-        }
-        return true;
+        int slow = n; int fast = n;
+        do{
+            slow = square(slow);
+            fast = square(square(fast));
+        }while(slow!=fast);
+
+        return slow == 1;
     }
     int square(int n){
         int sum = 0;

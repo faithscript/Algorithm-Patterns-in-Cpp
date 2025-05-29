@@ -57,3 +57,14 @@ public:
 
     }
 };
+// 1 3 5, 2 4 6
+// save 3 and 4, as C and D, 1 and 2 as A and B
+
+// A next is B
+// B's next is C
+// new A is C, new B is D
+
+// to reverse, 1 2 3 4 null
+// prev is null, A is 1, save it's next, 2 as B
+// let's pick apart A, while A is 1, A's next is prev as in 1 null
+// prev is now 1, and A is A's next which is B

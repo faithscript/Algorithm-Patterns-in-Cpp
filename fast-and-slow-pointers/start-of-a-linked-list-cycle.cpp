@@ -20,7 +20,7 @@ public:
         ListNode* s = head;
         ListNode* f = head;
 
-        while(f->next && f->next->next){
+        while(f && f->next){
             s = s->next;
             f = f->next->next;
 
