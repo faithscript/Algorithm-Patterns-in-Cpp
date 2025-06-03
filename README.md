@@ -1,6 +1,29 @@
 # Algorithm Patterns in C++
 
-Just a collection of common algorithm patterns implemented in C++, designed to help quickly review key algorithmic techniques for coding interviews and competitive programming.
+Hey! This is just my personal space for keeping track of all the algorithm patterns I'm learning. I'm documenting my solutions, notes, and understanding as I go through different problems. Feel free to check it out if you're also on your algorithm learning journey. 😊
+
+## Purpose
+
+This repository is used to:
+- Document and track understanding of various algorithm patterns
+- Maintain a collection of well-commented C++ implementations
+- Serve as a quick reference for algorithm review
+- Track progress in learning and implementing different algorithmic approaches
+
+## Structure
+
+Each algorithm pattern has its own directory containing:
+- Problem solutions
+- Implementation notes
+- Example cases
+- Detailed comments explaining the approach
+
+## Current Focus
+
+Currently working on and reviewing:
+- Cyclic Sort
+- Fast & Slow Pointers
+- And other algorithm patterns as they are learned and implemented
 
 ## Overview
 
