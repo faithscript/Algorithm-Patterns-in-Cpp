@@ -29,20 +29,20 @@ vector<vector<int>>answer;
 
 int i = 0, n = intervals.size();
 
-// Step 1: Add all intervals that end before newInterval starts
+// Step 1: end before start
 while(i < n && intervals[i][1] < newInterval[0]){
     answer.push_back(intervals[i]);
     i++;
 }
 
-// Step 2: Merge overlapping intervals
+// Step 2: start before or equal to end, spanning
 while(i < n && intervals[i][0] <= newInterval[1]){
     newInterval[0] = min(intervals[i][0], newInterval[0]);
     newInterval[1] = max(intervals[i][1], newInterval[1]);
     i++;
 }
 
-// Step 3: Add the merged interval
+// Step 3: add new interval
 answer.push_back(newInterval);
 
 // Step 4: Add all remaining intervals
