@@ -8,32 +8,24 @@ Output: 2
 
 */
 
-// Initialize the vector array with the example input
-vector<int> nums = {4, 0, 3, 1};  // Missing number is 2
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n = nums.size();
 
-// Additional test cases
-vector<int> nums2 = {8, 3, 5, 2, 4, 6, 0, 1};  // Missing number is 7
-vector<int> nums3 = {9, 6, 4, 2, 3, 5, 7, 0, 1};  // Missing number is 8
+        for(int i = 0; i < n; ++i){
+            while(nums[i] < n && nums[i] != nums[nums[i]]){
+                swap(nums[i], nums[nums[i]]);
+            }
+        }
 
-// using nums
+        for(int i = 0; i < n; i++){
+            if(nums[i] != i){
+                return i;
+            }
+        }
 
-int i = 0;
-whlie(i < nums.size()){
-    int curr = nums[i];  // nums[i] = i, so we want our index to be the value of nums[i]
-    if(nums[i] != nums[curr]){
-        swap(nums[i], nums[curr]);        // swap if it's not that value
-    }else{
-        i++;
+        return n;
+
     }
-}
-
-for(int j = 0; j < nums.size(); j++){
-    if(nums[j] != j){
-        //return that number which will be j
-        return j;
-    }
-}
-
-// return the last number (n) if no number was returned
-return n;
-
+};
