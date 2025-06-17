@@ -17,3 +17,18 @@
 // Input: s = "azxxzy"
 // Output: "ay"
 
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        string st;
+        for(char c: s){
+            if(!st.empty() && st.back() == c){
+                st.pop_back();
+                continue;
+            }
+            st.push_back(c);
+        }
+
+        return st;
+    }
+};
