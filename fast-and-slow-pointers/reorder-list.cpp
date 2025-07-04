@@ -27,10 +27,9 @@ public:
             s = s->next;
             f = f->next->next;
         } 
-        ListNode* sec = reverse(s->next);
+        ListNode* head2 = reverse(s->next);
         s->next = nullptr;
-        ListNode* fir = head;
-        merge(fir, sec);
+        merge(head, head2);
     }
 
     ListNode* reverse(ListNode* lst){
@@ -43,16 +42,19 @@ public:
             curr = next;
         }
         return prev;
+        // 1 2 3 4 5
+        // 1 2 3 --- 5 4
+        // 1 5 2 4 3
     }
     void merge(ListNode* first, ListNode* second){
         while(second){
-            ListNode* curr = first->next;
-            ListNode* temp = second->next;
+            ListNode* firN = first->next;
+            ListNode* secN = second->next;
 
             first->next = second;
-            second->next = curr;
-            first = curr;
-            second = temp;   
+            second->next = firN;
+            first = firN;
+            second = secN;   
         }
 
     }

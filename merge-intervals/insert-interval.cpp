@@ -1,56 +1,65 @@
-/*
-    Insert Interval - Problem Description
-    
-    Given a sorted list of non-overlapping intervals, insert a new interval into the list
-    while ensuring the resulting list contains only non-overlapping intervals.
-    
-    If necessary, merge the new interval with existing ones to maintain the non-overlapping property.
+// You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
 
-    Example:
-    Input: Intervals=[[1,3], [5,7], [8,12]], New Interval=[4,6]
-    Output: [[1,3], [4,7], [8,12]]
-    Explanation: After insertion, [4,6] overlaps with [5,7], so they are merged into [4,7].
-*/
+// Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).
 
-/*
-    Algorithm Approach:
-    
-    1. Add all intervals that end before the new interval starts
-    2. Merge the new interval with any intervals that overlap with it
-    3. Add all remaining intervals that start after the new interval ends
-    
-    This three-step approach efficiently handles the insertion while maintaining the 
-    non-overlapping property of the resulting interval list.
-*/
+// Return intervals after the insertion.
 
-vector<vector<int>> intervals = {{1, 3}, {5, 7}, {8, 12}};
-vector<int> newInterval = {4, 6};
-vector<vector<int>>answer;
+// Note that you don't need to modify intervals in-place. You can make a new array and return it.
 
-int i = 0, n = intervals.size();
+ 
 
-// Step 1: end before start
-while(i < n && intervals[i][1] < newInterval[0]){
-    answer.push_back(intervals[i]);
-    i++;
-}
+// Example 1:
 
-// Step 2: start before or equal to end, spanning
-while(i < n && intervals[i][0] <= newInterval[1]){
-    newInterval[0] = min(intervals[i][0], newInterval[0]);
-    newInterval[1] = max(intervals[i][1], newInterval[1]);
-    i++;
-}
+// Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
+// Output: [[1,5],[6,9]]
+// Example 2:
 
-// Step 3: add new interval
-answer.push_back(newInterval);
+// Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+// Output: [[1,2],[3,10],[12,16]]
+// Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+ 
 
-// Step 4: Add all remaining intervals
-while(i < n){
-    answer.push_back(intervals[i]);
-    i++;
-}
+// Constraints:
 
-//you can return the answer
+// 0 <= intervals.length <= 104
+// intervals[i].length == 2
+// 0 <= starti <= endi <= 105
+// intervals is sorted by starti in ascending order.
+// newInterval.length == 2
+// 0 <= start <= end <= 105
+
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>>a;
+        int n = intervals.size();
+        int i = 0;
+
+        sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b){
+            return a[0] < b[0];
+        });
+
+        while(i < n && intervals[i][1] < newInterval[0]){
+            a.push_back(intervals[i]);
+            i++;
+        }
+
+        while(i < n && intervals[i][0] <= newInterval[1]){
+            newInterval[0] = min(intervals[i][0], newInterval[0]);
+            newInterval[1] = max(intervals[i][1], newInterval[1]);
+            i++;
+        }
+
+        a.push_back(newInterval);
+
+        while(i < n){
+            a.push_back(intervals[i]);
+            i++;
+        }
+
+        return a;
 
 
+
+    }
+};

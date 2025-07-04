@@ -20,6 +20,16 @@
 // -500 <= Node.val <= 500
 // 1 <= left <= right <= n
  
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
@@ -27,33 +37,37 @@ public:
             return head;
         }
 
-        ListNode* dummy = new ListNode(0);
-        dummy->next = head;
+        ListNode* d = new ListNode(0);
+        d->next = head;
+        ListNode* p = d;
 
-        ListNode* prev = dummy;
-
-        for(int i = 0; i < left - 1; i++){
-            prev = prev->next;   // prev = 1
+        for(int i = 0; i < left - 1; ++i){
+            p = p->next;
         }
 
-        ListNode* curr = prev->next;  // curr = 2
-
-        // moving the node after curr to the front of the list
-        // 2 3 4
-        // 3 2 4
-        // 4 3 2
-        // 1 3 2 4 5
-        for(int i = 0; i < right - left; i++){
-            ListNode* temp = curr->next;   // 4 -> 5
-            curr->next = temp->next;   // curr-> next now makes it 2, 4, 5
-            temp->next = prev->next;  // 3's next is now 245 making 3, 2, 4, 5
-            prev->next = temp;    //    prev is 1 and we want the next to be 3 2 4 5
+        ListNode* c = p->next; // starts at 2, p starts at 1
+        
+        for(int i = 0; i < right - left; ++i){
+            ListNode* t = c->next; // save 3 || 3 4 5 ||| save 4->5
+            c->next = t->next; // sets 2 -> 4 5       ||| set 2 -> 5
+            t->next = p->next; // sets 3 -> 2 4 5     ||| set 4 -> 3 2 5
+            p->next = t; // sets 1 -> 3 2 4 5         ||| set 1 -> 4 3 2 5
         }
 
-        return dummy->next;
-
-
-
-
+        return d->next;
     }
 };
+
+// gameplan:
+// l and r are the sublists and are 1-indexed
+// create a dummy node, d, with the value 0, set d_n = head;
+// let's look for the start of the reversal of the sublist with a tracker p;
+// start p at d, incase the sublist starts at head
+// set p = p_n for all [0, l-1), since they're 1-indexed, we want p to be just before the element at l
+
+// set a pointer c to be p_n, meaning the actual element at l
+
+// for all [0, r-l), in here we just want to move the node after c to the front of the list
+// [2] 3 4, where c = 2 turns to, 3 [2] 4, then 4 3 [2]
+// we can call this node after c, t, so we set t = c_n
+// 

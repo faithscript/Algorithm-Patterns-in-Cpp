@@ -32,63 +32,63 @@ public:
       return head;
     }
 
-    ListNode* dummy = new ListNode(0);
-    dummy->next = head;
+    ListNode* d = new ListNode(0);
+    d->next = head
 
-    ListNode* prev = dummy;
-    ListNode* curr = head;
+    ListNode* p = dummy;
+    ListNode* c = head;
 
-    bool reverse = true;
+    bool rev =  true;
 
-    while(curr){
+    while(c){
       int cnt = 0;
-      ListNode* interval = curr;
-      while(interval && cnt < k){
+      ListNode* check = c;
+      while(check && cnt < k){
         cnt++;
-        interval = interval->next;
+        check = check->next;
       }
 
       if(cnt < k){
-        if(reverse){
-          ListNode* revPrev = nullptr;
+        if(rev){
+          ListNode* p2 = nullptr;
           for(int i = 0; i < cnt; i++){
-            ListNode* nextN = curr->next;
-            curr->next = revPrev;
-            revPrev = curr;
-            curr = nextN;
+            ListNode* N = c->next;
+            c->next = p2;
+            p2 = c;
+            c = N;
           }
-          prev->next = revPrev;
+          p->next = p2;
         }else{
-          prev->next = curr;
+          p->next = curr;
         }
         break;
       }
 
-      if(reverse){
-          ListNode* start = curr;
-          ListNode* revPrev = nullptr;``
+      if(rev){
+          ListNode* c2 = c;
+          ListNode* p2 = nullptr;
           for(int i = 0; i < k; i++){
-            ListNode* nextN = curr->next;
-            curr->next = revPrev;
-            revPrev = curr;
-            curr = nextN;
+            ListNode* N = c->next;
+            c->next = p2;
+            p2 = c;
+            c = N;
           }
-          prev->next = revPrev;
-          start->next = curr;
-          prev = start;
+          p->next = p2;
+          c2->next = c;
+          prev = c2;
       }else{
         for(int i = 0; i < k; i++){
-          prev = curr;
-          curr = curr->next;
+          p = c;
+          c = c->next;
         }
       }
-      reverse = !reverse;
+      rev = !rev;
     }
 
-    ListNode* ans = dummy->next;
-    delete dummy;
-    return ans;
+    return d->next
 
 
   }
 };
+
+

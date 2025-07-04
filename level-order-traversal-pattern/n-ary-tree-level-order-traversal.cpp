@@ -36,10 +36,9 @@ public:
             ans.emplace_back();
             for(int i = 0; i < sz; i++){
                 Node* node = q.front(); q.pop();
-
                 ans.back().push_back(node->val);
 
-                for(Node* n: node->children){
+                for(Node* n: node->children) {
                     q.push(n);
                 }
             }

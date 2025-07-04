@@ -26,7 +26,6 @@
  
 
 // Follow-up: Can you solve the problem in O(1) extra memory space?
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -40,32 +39,40 @@
 class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
-        if(!head || !head->next || k == 0){
-            return head;
-        }
+        if(!head || !head->next || k == 0) return head;
 
-        int len = 1;
+        int n = 1;
         ListNode* tail = head;
         while(tail->next){
             tail = tail->next;
-            len++;
+            n++;
         }
 
-        k = k % len;
+        k %= n;
         if(k == 0) return head;
-
-        tail->next = head; // make it a cycle
-        ListNode* newtail = head;
-
-        for(int i = 0; i < len - k - 1; i++){
-            newtail = newtail->next;
+        
+        tail->next = head;
+        ListNode* tail2 = head;
+        for(int i = 0; i < n - k - 1; ++i){
+            tail2 = tail2->next;
         }
 
-        ListNode* newHead = newtail->next;
-        newtail->next = nullptr;
+        ListNode* head2 = tail2->next;
+        tail2->next = nullptr;
 
-
-        return newHead;
+        return head2;
 
     }
 };
+
+// gameplan
+// so we use a while(tail_n) to get the tail to the end and record the length;
+// return head if !head or !head_n or k == 0
+// normalize k
+// if it's 0 return head again
+// make the tail_n = head; to make it a cycle
+
+// make a new pointer tail2 and start it at head
+// this new tail will be n - k - 1 units away from the head
+// then a new head, head2 starts at tail2_n
+// then make the tail2_n nullptr;

@@ -30,3 +30,5 @@ public:
     }
 
 };
+
+// just return where the slow and fast meet at a specific spot

@@ -48,3 +48,21 @@ public:
         return (i + nums[i] % n + n) % n;
     }
 };
+// game plan: turn the numbers you've looked over to 0
+// next function called N
+// plan
+// iterate over the whole array and continue if you witness zero, array a
+// set the constant of the direction depending on the sign of nums[i]; call it d
+// set your fast and slow pointer, as f d
+//and while a_f*d > 0 && a_N(f)*d >0 , we perform s = N(s) and f = N(N(f))
+// cycle occurs when s == f, so the pointers met up
+// make sure the cycle isn't 1 by checking if s != N(s) meaning return true or you break the while loop;
+
+// to turn the numbers we've looked over we can set a pointer, p to i, and while(a_p*d > 0)
+// set a_p to 0, and perform p = N(p)
+
+// next formula is i + a_i % n
+// since it can be negfative, i +a_i % n + n
+// final normalization
+// (i + a_i % n + n) % n
+

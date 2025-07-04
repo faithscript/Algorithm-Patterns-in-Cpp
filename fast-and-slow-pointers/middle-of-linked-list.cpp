@@ -25,3 +25,5 @@ public:
         return slow;
     }
 };
+
+// game plan is just after the fast reaches the end, the slow is at the middle 

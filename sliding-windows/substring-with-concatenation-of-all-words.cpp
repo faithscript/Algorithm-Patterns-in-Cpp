@@ -51,43 +51,36 @@
 class Solution {
 public:
     vector<int> findSubstring(string s, vector<string>& words) {
-        int wordLength = words[0].size();
-        vector<int>ans;
-        
-        unordered_map<string, int>wMp;
-        for(string word: words) wMp[word]++;
+        int n = s.size();
+        int wordL = words[0].size();
+        unordered_map <string, int> wmp;
+        for(string st: words) wmp[st]++;
+        vector<int> ans;
 
-        for(int i = 0; i < wordLength; i++){
-            int initial = i;
-            int count = 0;
-            unordered_map<string, int> sMp;
+        for(int i = 0; i < wordL; ++i){
+            int start = i, cnt = 0;
+            unordered_map<string, int> sub;
 
-            for(int final = i; final <= n - wordLength; final += wordLength){
-                string word = s.substr(end, wordLength);
+            for(int end = i; end + wordL <= n; end+=wordL){
+                string word = s.substr(end, wordL);
 
-                if(wMp.find(word) != wMp.end()){
-                    sMp[word]++;
-                    count++;
-
-                    while(sMp[word] > wMp[word]){
-                        string leftWord = s.substr(initial, wordLength);
-                        sMp[leftWord]--;
-                        count--;
-                        initial += wordLength;
+                if(wmp.count(word)){
+                    cnt++;
+                    sub[word]++;
+                    while (sub[word] > wmp[word]){
+                        string firstW = s.substr(start, wordL);
+                        sub[firstW]--;
+                        cnt--;
+                        start += wordL;
                     }
-                    if(count == words.size()){
-                        ans.push_back(count);
-                    }
-
+                    if(cnt == words.size()) ans.push_back(start);
 
                 }else{
-                    sMp.clear();
-                    count = 0;
-                    initial = final + wordL
+                    sub.clear();
+                    cnt = 0;
+                    start = end + wordL;
                 }
-                
             }
-
         }
         return ans;
 

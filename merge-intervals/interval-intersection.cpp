@@ -1,51 +1,56 @@
-/*
-    Interval Intersection - Problem Description
-    
-    Given two lists of non-overlapping intervals sorted by their start times,
-    find all intersections between these two interval lists.
-    
-    An intersection is defined as the interval that exists in both lists.
-    For two intervals to intersect, they must share at least one common point.
+// You are given two lists of closed intervals, firstList and secondList, where firstList[i] = [starti, endi] and secondList[j] = [startj, endj]. Each list of intervals is pairwise disjoint and in sorted order.
 
-    Example:
-    Input: arr1=[[1, 3], [5, 6], [7, 9]], arr2=[[2, 3], [5, 7]]
-    Output: [[2, 3], [5, 6], [7, 7]]
-    Explanation: The output contains all intervals where arr1 and arr2 overlap.
-    
-    Algorithm Approach:
-    1. Use two pointers to traverse both interval lists simultaneously
-    2. For each pair of intervals, calculate their intersection (if any)
-    3. Move the pointer of the interval that ends earlier to the next interval
-    4. Continue until we've processed all intervals in either list
-*/
+// Return the intersection of these two interval lists.
 
-// Initialize the two interval vectors
-vector<vector<int>> arr1 = {{1, 3}, {5, 6}, {7, 9}};
-vector<vector<int>> arr2 = {{2, 3}, {5, 7}};
-vector<vector<int>> result;
+// A closed interval [a, b] (with a <= b) denotes the set of real numbers x with a <= x <= b.
 
-int i = 0, j = 0, m = arr1.size(), n = arr2.size();
+// The intersection of two closed intervals is a set of real numbers that are either empty or represented as a closed interval. For example, the intersection of [1, 3] and [2, 4] is [2, 3].
 
-while(i < m && j < n){
-    // Find the intersection points
-    int start = max(arr1[i][0], arr2[j][0]);
-    int end = min(arr1[i][1], arr2[j][1]);
+ 
 
-    // If there is an intersection, add it to the result
-    // SO, If the maximum start time between two intervals is more than the minimum end time
-    if(start <= end){
-        result.push_back({start, end});
+// Example 1:
+
+
+// Input: firstList = [[0,2],[5,10],[13,23],[24,25]], secondList = [[1,5],[8,12],[15,24],[25,26]]
+// Output: [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
+// Example 2:
+
+// Input: firstList = [[1,3],[5,9]], secondList = []
+// Output: []
+ 
+
+// Constraints:
+
+// 0 <= firstList.length, secondList.length <= 1000
+// firstList.length + secondList.length >= 1
+// 0 <= starti < endi <= 109
+// endi < starti+1
+// 0 <= startj < endj <= 109 
+// endj < startj+1
+
+class Solution {
+public:
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& firstList, vector<vector<int>>& secondList) {
+        vector<vector<int>>a;
+        int m = firstList.size();
+        int n = secondList.size();
+        int l = 0, r = 0;
+
+        while(l < m && r < n){
+            // max beginning vs min end
+            int v1 = max(firstList[l][0], secondList[r][0]);
+            int v2 = min(firstList[l][1], secondList[r][1]);
+
+            if(v1 <= v2){
+                a.push_back({v1, v2});
+            }
+            // smaller end moves forward
+            if(firstList[l][1] < secondList[r][1]){
+                l++;
+            }else r++;
+        }
+
+        return a;
+
     }
-    
-    // Move the pointer of the interval that ends earlier
-    if(arr1[i][1] < arr2[j][1]){
-        i++;
-    }else{
-        j++;
-    }
-}
-
-// you can return the result here
-
-
-
+};
