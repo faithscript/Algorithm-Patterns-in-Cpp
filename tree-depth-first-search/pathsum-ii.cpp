@@ -42,26 +42,23 @@
  */
 class Solution {
 public:
-    vector<vector<int>> res;
-
-    void dfs(TreeNode* node, int targetSum, vector<int>& path){
+    vector<vector<int>> a;
+    void dfs(TreeNode* node, vector<int> &path, int targetSum){
         if(!node) return;
-
         path.push_back(node->val);
+
         targetSum -= node->val;
 
-        if(!node->left && !node->right && targetSum == 0){
-            res.push_back(path);
-        }
-
-        dfs(node->left, targetSum, path);
-        dfs(node->right, targetSum, path);
+        if(!node->left && !node->right && targetSum == 0) a.push_back(path);
         
-        path.pop_back(); 
+        dfs(node->left, path, targetSum);
+        dfs(node->right, path, targetSum);
+
+        path.pop_back();
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<int> path;
-        dfs(root, targetSum, path);
-        return res;
+        dfs(root, path, targetSum);
+        return a;
     }
 };

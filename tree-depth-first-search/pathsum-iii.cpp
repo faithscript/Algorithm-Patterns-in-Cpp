@@ -38,21 +38,24 @@ public:
     int pathSum(TreeNode* root, int targetSum) {
         if (!root) return 0;
 
-        int count = countFrom(root, targetSum);
+        // count paths starting from current node
+        int count = countFrom(root, targetSum); // count from root;
+
 
         count += pathSum(root->left, targetSum);    
         count += pathSum(root->right, targetSum);
 
-        return count;
+        return count; // return count
     }
     int countFrom(TreeNode* node, long long target){
         if(!node) return 0;
 
         int count = 0;
-        if(node->val == target) count++;
+        target -= node->val;
+        if(target == 0) count++;
 
-        count += countFrom(node->left, target - node->val);
-        count += countFrom(node->right, target - node->val);
+        count += countFrom(node->left, target);
+        count += countFrom(node->right, target);
 
         return count;
     }

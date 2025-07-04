@@ -65,12 +65,8 @@ public:
         for(int i = 0; i < nodes.size() - 1; ++i){
             nodes[i]->next = nodes[i+1];
         }
-        if(!nodes.empty()){
-            nodes.back()->next = nullptr;
-            return nodes[0];
-        }
-
-        return nullptr;
+        nodes.back()->next = nullptr;
+        return nodes[0];
     }
 };
 

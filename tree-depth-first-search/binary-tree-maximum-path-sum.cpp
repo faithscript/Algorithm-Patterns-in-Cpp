@@ -28,3 +28,32 @@
 
 // The number of nodes in the tree is in the range [1, 3 * 104].
 // -1000 <= Node.val <= 1000
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int sum = INT_MIN;
+    int dfs(TreeNode* node){
+        if(!node) return 0;
+
+        int left = max(0, dfs(node->left));
+        int right = max(0, dfs(node->right));
+        sum = max(sum, left + right + node->val);
+
+        return node->val + max(left, right);
+    }
+    int maxPathSum(TreeNode* root) {
+        dfs(root);
+        return sum;
+    }
+};

@@ -22,25 +22,26 @@ class Solution {
 public:
     unordered_map<int, int> tree;  // key: depth * 10 + pos, value: node value
     int totalSum = 0;
+    int pathSum = 0;  // Shared variable
 
-    void dfs(int depth, int pos, int pathSum) {
+    void dfs(int depth, int pos) {
         int key = depth * 10 + pos;
         if (!tree.count(key)) return;
 
         pathSum += tree[key];
 
-        // Check for children
         int leftKey = (depth + 1) * 10 + (pos * 2 - 1);
         int rightKey = (depth + 1) * 10 + (pos * 2);
 
         if (!tree.count(leftKey) && !tree.count(rightKey)) {
-            // It's a leaf
             totalSum += pathSum;
             return;
         }
 
-        dfs(depth + 1, pos * 2 - 1, pathSum);
-        dfs(depth + 1, pos * 2, pathSum);
+        dfs(depth + 1, pos * 2 - 1);
+        dfs(depth + 1, pos * 2);  
+
+        pathSum -= tree[key];  // Backtrack
     }
 
     int pathSum(vector<int>& nums) {
@@ -51,7 +52,7 @@ public:
             tree[d * 10 + p] = v;
         }
 
-        dfs(1, 1, 0);
+        dfs(1, 1);
         return totalSum;
     }
 };
