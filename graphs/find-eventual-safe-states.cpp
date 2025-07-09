@@ -99,7 +99,7 @@ private:
         for (int neighbor : graph[node]) {
             // If any neighbor is unsafe, this node is unsafe
             if (!isSafe(neighbor, graph, memo)) {
-                memo[node] = 0;  // Mark as unsafeBro sometimadsS
+                memo[node] = 0;  // Mark as unsafe
                 return false;
             }
         }
