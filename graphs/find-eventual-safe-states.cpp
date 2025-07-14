@@ -93,7 +93,7 @@ private:
         }
         
         // Mark as currently visiting (for cycle detection)
-        memo[node] = 0;
+        memo[node] = 0; // to track cycles and visiting overlap
         
         // Check all neighbors
         for (int neighbor : graph[node]) {

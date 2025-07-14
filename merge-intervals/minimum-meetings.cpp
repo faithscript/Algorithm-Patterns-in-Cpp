@@ -28,7 +28,7 @@ vector<vector<int>>meetings = {{1, 4}, {2, 5}, {7, 9}};
 int minRooms = 0;
 int curRooms = 0;
 
-sort(meetings.begin(), meetings.end(), [](const vector<int>&a, const vector<int>&b){
+sort(meetings.begin(), meetings.end(), [](const auto&a, const auto&b){
     return a[0] < b[0];
 });
 
@@ -45,3 +45,4 @@ for(int i = 0; i < meetings.size(); i++){
 }
 
 // you can return minRooms here
+

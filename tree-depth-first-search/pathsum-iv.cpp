@@ -45,6 +45,7 @@ public:
     }
 
     int pathSum(vector<int>& nums) {
+        int pathSum = 0;
         for (int num : nums) {
             int d = num / 100;
             int p = (num / 10) % 10;

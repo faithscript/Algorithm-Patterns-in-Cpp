@@ -11,23 +11,29 @@
 
 class Solution {
 public:
-    // Main function to return the minimum root to leaf sum
+    int minSum = INT_MAX;
+
     int minRootToLeafSum(TreeNode* root) {
-        // Base case: if the tree is empty, return a large value since we are finding the minimum sum
-        if (root == nullptr) {
-            return INT_MAX;
+        int currentSum = 0;  // Shared variable
+        dfs(root, currentSum);
+        return minSum;
+    }
+
+    void dfs(TreeNode* node, int& currentSum) {  // Pass by reference
+        if (!node) return;
+
+        currentSum += node->val;  // Add current node's value
+
+        // If it's a leaf node, update the minimum
+        if (!node->left && !node->right) {
+            minSum = min(minSum, currentSum);
+            currentSum -= node->val;  // Backtrack
+            return;
         }
 
-        // Base case: if we reached a leaf node, return its value
-        if (root->left == nullptr && root->right == nullptr) {
-            return root->val;
-        }
-
-        // Recursive case: compute the minimum sum for left and right subtrees
-        int leftSum = minRootToLeafSum(root->left);
-        int rightSum = minRootToLeafSum(root->right);
-
-        // Return the minimum of the two sums, adding the current node's value
-        return root->val + min(leftSum, rightSum);
+        dfs(node->left, currentSum);   // Explore left subtree
+        dfs(node->right, currentSum);  // Explore right subtree
+        
+        currentSum -= node->val;  // Backtrack: restore the value
     }
 };
